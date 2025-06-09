@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<main layout:fragment="content">
+     
+     
+     <div class="container-fluid">
+        
+          
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">📚 Exam History for <span th:text="${student.name}">Student Name</span></h2>
+        <p class="text-muted">Here's a list of your past exam attempts.</p>
+    </div>
+
+    <div class="table-responsive shadow rounded">
+        <table class="table table-striped table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Exam Title</th>
+                    <th>Attempt Date</th>
+                    <th>Score (%)</th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="attempt, stat : ${attempts}">
+                    <td th:text="${stat.count}">1</td>
+                    <td th:text="${attempt.exam.examTitle}">Java Basics</td>
+                    <td th:text="${#temporals.format(attempt.attemptDate, 'dd-MM-yyyy HH:mm')}">01-06-2025 10:30</td>
+                    <td th:text="${attempt.score}">92.0</td>
+                  
+                </tr>
+                <tr th:if="${#lists.isEmpty(attempts)}">
+                    <td colspan="5" class="text-muted text-center">No exam attempts found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+     </div>
+          
+   
+</main>
+</html>

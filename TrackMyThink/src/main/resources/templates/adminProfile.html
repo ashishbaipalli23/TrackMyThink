@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{adminlayout}">
+
+<main layout:fragment="content">
+	<div class="container py-5">
+		<div
+			class="card border-0 bg-light rounded-4 shadow-lg px-4 px-md-5 py-4">
+
+			<!-- Profile Header -->
+			<div
+				class="d-flex flex-column flex-md-row align-items-center border-bottom pb-4 mb-4 gap-4">
+
+				<!-- Profile Image -->
+				<div class="text-center">
+
+					<!-- Debug helper (optional) -->
+					<!-- <p th:text="${admin.profileImage != null ? 'Image exists' : 'Image is null'}"></p> -->
+
+					<!-- Show profile photo if exists -->
+					<!-- Unified profile photo rendering -->
+					<img th:src="@{'/admin/profile-photo/' + ${admin.adminId}}"
+						alt="Admin Profile"
+						class="rounded-circle shadow border border-secondary"
+						onerror="this.onerror=null;this.src='/images/default_avthar.jpg';"
+						style="width: 140px; height: 140px; object-fit: cover; transition: 0.3s;" />
+
+
+					<!-- Fallback to default image if no photo 
+					<img th:unless="${admin.profileImage != null}"
+						th:src="@{/images/default_avthar.jpg}" alt="Default Admin Profile"
+						class="rounded-circle shadow border border-secondary"
+						style="width: 140px; height: 140px; object-fit: cover; transition: 0.3s;" /> -->
+				</div>
+
+				<!-- Basic Info -->
+				<div class="flex-grow-1 text-center text-md-start">
+					<h2 class="fw-bold text-dark mb-1" th:text="${admin.name}">Admin
+						Name</h2>
+					<p class="text-muted mb-1 fs-6" th:text="${admin.email}">admin@example.com</p>
+					<p class="text-muted fs-6">
+						<i class="bi bi-person-badge-fill me-1 text-primary"></i> <span
+							th:text="${admin.role}">ADMIN</span>
+					</p>
+				</div>
+
+				<!-- Edit Button -->
+				<div class="text-center text-md-end">
+					<a th:href="@{/admin/updateProfile}"
+						class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">
+						<i class="bi bi-pencil-square me-2"></i>Edit Profile
+					</a>
+				</div>
+			</div>
+
+			<!-- Profile Details -->
+			<div class="row gy-4">
+				<!-- Created At -->
+				<div class="col-12 col-sm-6">
+					<div class="text-muted small mb-1">Account Created On</div>
+					<div class="fw-semibold fs-6 text-dark"
+						th:text="${#temporals.format(admin.createdAt, 'dd MMM yyyy HH:mm')}">Date</div>
+				</div>
+
+				<!-- Last Login -->
+				<div class="col-12 col-sm-6">
+					<div class="text-muted small mb-1">Last Login</div>
+					<div class="fw-semibold fs-6 text-dark"
+						th:text="${admin.lastLogin != null ? #temporals.format(admin.lastLogin, 'dd MMM yyyy HH:mm') : 'Never'}">Date</div>
+				</div>
+
+				<!-- Status -->
+				<div class="col-12 col-sm-6">
+					<div class="text-muted small mb-1">Account Status</div>
+					<span
+						class="badge rounded-pill px-3 py-2 fs-6 fw-semibold d-inline-flex align-items-center gap-1"
+						th:classappend="${admin.isActive} ? 'bg-success text-white' : 'bg-danger text-white'"
+						th:text="${admin.isActive ? 'Active' : 'Inactive'}"> </span>
+				</div>
+
+				<!-- Role -->
+				<div class="col-12 col-sm-6">
+					<div class="text-muted small mb-1">Role</div>
+					<div class="fw-semibold text-uppercase fs-6 text-dark"
+						th:text="${admin.role}">ADMIN</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</main>
+
+</html>

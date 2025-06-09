@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<main layout:fragment="content">
+	<div class="container">
+
+		<!-- Welcome Section -->
+		<div class="card shadow-sm border-0 mb-4">
+			<div class="card-body">
+				<h2 class="card-title text-primary mb-3">
+					Welcome, <span th:text="${student.name}">Student</span>!
+				</h2>
+
+				<div th:if="${student != null and !student.isActive}"
+					class="alert alert-warning d-flex align-items-center" role="alert">
+					<i class="bi bi-exclamation-triangle-fill me-2"></i> Please update
+					your profile (gender and address) to access all features.
+				</div>
+
+				<p class="lead">Select a task from the left menu to get started.</p>
+			</div>
+		</div>
+
+		<!-- Exam Summary Only -->
+		<div class="row justify-content-center mt-5" th:if="${student.isActive}">
+			<div class="col-md-6">
+				<div class="card text-center border-0 shadow">
+					<div class="card-header bg-primary text-white">
+						<h5 class="mb-0">
+							<i class="bi bi-graph-up-arrow me-2"></i>Exam Summary
+						</h5>
+					</div>
+					<div class="card-body">
+						<h5>Total Exams Attempted:</h5>
+						<h3 class="text-primary fw-bold" th:text="${examCount}">0</h3>
+						<hr>
+						<h5>Average Score:</h5>
+						<h3 class="text-success fw-bold" th:text="${formattedAvgScore}">0.0 / 100</h3>
+						
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		</div>
+</main>
+</html>

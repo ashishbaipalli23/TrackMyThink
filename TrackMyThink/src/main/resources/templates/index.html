@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrackMyThink | Online Examination Platform</title>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- AOS Animation CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    /* Prevent horizontal scrolling */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+      padding-top: 56px;
+    }
+
+    .navbar {
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #f8f9fa !important;
+    }
+
+   /*  .nav-link {
+      color: #f8f9fa !important;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: #ffe600 !important;
+    } */
+
+   .hero {
+   min-height: 100vh; /* Full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  color: white;
+  padding-top: 206px;
+  padding-bottom: 150px;
+  
+  /**background: linear-gradient(to right, #4e54c8, #8f94fb);  <--- ADD THIS */
+}
+   
+
+   
+   
+    .btn-custom {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #343a40;
+    }
+
+    .feature-card {
+      padding: 30px 20px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.03);
+    }
+
+    .hero-heading, .hero-subheading {
+  color: #343a40; /* Dark text for light mode */
+}
+
+.dark-mode .hero-heading, 
+.dark-mode .hero-subheading {
+  color: #ffffff; /* White text in dark mode */
+}
+    
+
+    .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .dark-mode .navbar {
+      background: linear-gradient(90deg, #1f1f1f, #3a3a3a);
+    }
+
+    .dark-mode .feature-card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    .dark-mode .section-title, .dark-mode .hero-heading, .dark-mode .hero-subheading {
+      color: #ffffff;
+    }
+
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      font-size: 28px;
+      border-radius: 50%;
+      padding: 14px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-button:hover {
+      background-color: #1ebe57;
+      color: #fff;
+    }
+
+    .footer {
+      background-color: #2e3c59;
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.95rem;
+    }
+
+    .footer .social-icons a {
+      color: #fff;
+      margin: 0 12px;
+      font-size: 1.3rem;
+    }
+
+    .footer .social-icons a:hover {
+      color: #ffe600;
+    }
+
+    .dark-mode .footer {
+      background-color: #1a1a1a;
+      color: #ccc;
+    }
+
+    .dark-mode .footer .social-icons a {
+      color: #ccc;
+    }
+
+    .dark-mode .footer .social-icons a:hover {
+      color: #ffe600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">TrackMyThink</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item">
+            <a class="nav-link btn btn-warning text-white  fw-bold px-3 " href="#contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <button id="darkModeToggle" class="btn btn-outline-light">🌙 Dark Mode</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero d-flex align-items-center justify-content-center flex-column" data-aos="fade-up">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold hero-heading">
+        Welcome to <span class="text-warning">TrackMyThink</span>
+      </h1>
+      <p class="lead mt-3 mb-4 hero-subheading">Smarter Exams. Deeper Insights. Track your learning with confidence.</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a id="studentLoginBtn" th:href="@{/login}" class="btn btn-outline-dark btn-custom">Student Login</a>
+        
+        
+        <a th:href="@{/admin/login}" class="btn btn-warning text-dark btn-custom">Admin Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="container py-5 text-center" data-aos="zoom-in-up">
+    <h2 class="section-title">Why Choose TrackMyThink?</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <h5>✅ Easy Exam Management</h5>
+          <p>Admins can create exams and questions effortlessly through a powerful and intuitive dashboard.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <h5>📊 Smart Results</h5>
+          <p>Automatic result processing with real-time analytics for performance tracking and growth monitoring.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <h5>🎥 Live Exam Monitoring</h5>
+          <p>Real-time monitoring tools help maintain exam integrity with webcam and activity tracking support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial & FAQ Section -->
+  <section class="container py-5" data-aos="fade-up">
+    <h2 class="section-title text-center">Testimonials & FAQs</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h5>🗣️ What Our Users Say</h5>
+        <blockquote class="blockquote">
+          <p>"TrackMyThink made our examination process seamless. Great UI and excellent support!"</p>
+          <footer class="blockquote-footer">Riya Sharma, Educator</footer>
+        </blockquote>
+        <blockquote class="blockquote">
+          <p>"Easy to register and take exams. Loved the instant results feature!"</p>
+          <footer class="blockquote-footer">Ankit Verma, Student</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-6">
+        <h5>❓ Frequently Asked Questions</h5>
+        <p><strong>Q:</strong> Can students retake exams?<br><strong>A:</strong> Only if the admin has enabled retakes for that exam.</p>
+        <p><strong>Q:</strong> Is there mobile support?<br><strong>A:</strong> Yes, our platform is responsive and works well on all devices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="form-section" data-aos="fade-left">
+  
+  
+    <div class="container">
+    
+      <h2 class="text-center mb-4 section-title">Contact Us</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form th:action="@{/sendmail}"  method="post">
+            <div class="mb-3">
+              <label for="cname" class="form-label">Your Name</label>
+              <input type="text" class="form-control" name="cname" id="cname" required />
+            </div>
+            <div class="mb-3">
+              <label for="cemail" class="form-label">Email address</label>
+              <input type="email" class="form-control" name="email" id="cemail" required />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" name="msg" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat Button -->
+  <a href="https://wa.me/8639190752" target="_blank" rel="noopener" class="chat-button" title="Chat with us on WhatsApp">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="container">
+      <p>© 2025 TrackMyThink | All rights reserved.</p>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com" target="_blank"><i class="bi bi-github"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+  AOS.init();
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const studentLoginBtn = document.getElementById('studentLoginBtn');
+
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    const isDark = document.body.classList.contains('dark-mode');
+    darkModeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+    // Toggle student login button theme
+    if (isDark) {
+      studentLoginBtn.classList.remove('btn-outline-dark');
+      studentLoginBtn.classList.add('btn-outline-light');
+    } else {
+      studentLoginBtn.classList.remove('btn-outline-light');
+      studentLoginBtn.classList.add('btn-outline-dark');
+    }
+  });
+</script>
+  
+</body>
+</html>

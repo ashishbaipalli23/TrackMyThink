@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logged Out - TrackMyThink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+	/* Prevent horizontal scrolling */
+	
+	
+  body {
+    background: linear-gradient(to right, #f7f7f7, #e0e0e0);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logout-card {
+    background-color: white;
+    padding: 2rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeIn 1.2s ease-out;
+  }
+
+  .logout-card h2 {
+    color: #dc3545;
+  }
+
+  .logout-card p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+
+  <script>
+    // Prevent browser back navigation
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+  </script>
+</head>
+<body class="bg-gradient d-flex justify-content-center align-items-center vh-100 bg-primary bg-opacity-75">
+
+  <div class="card shadow-lg text-center text-white bg-dark bg-opacity-75 p-5 animate__animated animate__fadeIn">
+    <div class="card-body">
+      <i class="bi bi-check-circle-fill display-3 text-success mb-4"></i>
+      <h2 class="card-title mb-3">You have been successfully logged out</h2>
+      <p class="card-text mb-4">Thank you for using TrackMyThink!</p>
+      <a href="/login" class="btn btn-outline-light btn-lg">
+        <i class="bi bi-box-arrow-in-right"></i> Login Again
+      </a>
+    </div>
+  </div>
+
+
+</body>
+</html>

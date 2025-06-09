@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<main layout:fragment="content">
+
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3><i class="bi bi-calendar2-event-fill me-2"></i> Upcoming Exams</h3>
+            <div class="text-muted">
+                <i class="bi bi-person-circle me-1"></i>
+                <span th:text="${student.name}">Student</span>
+            </div>
+        </div>
+
+        <!-- No Exams Available -->
+        <div class="alert alert-info text-center" th:if="${exams.isEmpty()}">
+            <i class="bi bi-info-circle-fill me-2"></i> No upcoming exams available at the moment.
+        </div>
+
+        <!-- Upcoming Exams -->
+        <div class="row g-4" th:if="${!exams.isEmpty()}">
+            <div class="col-sm-12 col-md-6 col-lg-4" th:each="exam : ${exams}">
+                <div class="card shadow-lg border-0 rounded-4 h-100">
+                    <!-- Card Header -->
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <strong th:text="${exam.examTitle}">Exam Title</strong>
+                        <span th:if="${attemptedExamIds.contains(exam.examId)}" class="badge bg-danger">Attempted</span>
+                        <span th:unless="${attemptedExamIds.contains(exam.examId)}" class="badge bg-success">Not Attempted</span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <p><i class="bi bi-bookmark-fill me-1"></i> Subject: <span th:text="${exam.subject}">Java</span></p>
+                        <p><i class="bi bi-calendar-event me-1"></i> Date: <span th:text="${exam.examDate}">2025-06-10</span></p>
+                        <p>
+                            <i class="bi bi-clock-fill me-1"></i> Time:
+                            <span th:text="${exam.startTime}">10:00</span> -
+                            <span th:text="${exam.endTime}">11:00</span>
+                        </p>
+                        <p><i class="bi bi-hourglass-split me-1"></i> Duration: <span th:text="${exam.durationMinutes + ' mins'}">30 mins</span></p>
+                    </div>
+
+                    <!-- Card Footer with Buttons -->
+                    <div class="card-footer bg-light d-grid">
+                        <!-- Write Exam -->
+                        <a th:if="${currentTime.isAfter(exam.startTime) and currentTime.isBefore(exam.endTime) and !attemptedExamIds.contains(exam.examId)}"
+                           th:href="@{/student/examPage/{id}(id=${exam.examId})}"
+                           class="btn btn-success btn-sm">
+                            <i class="bi bi-pencil-square me-1"></i> Write Exam
+                        </a>
+
+                        <!-- Attempted -->
+                        <button th:if="${attemptedExamIds.contains(exam.examId)}"
+                                class="btn btn-secondary btn-sm" disabled>
+                            <i class="bi bi-lock-fill me-1"></i> Attempted
+                        </button>
+
+                        <!-- Not Started -->
+                        <button th:if="${currentTime.isBefore(exam.startTime)}"
+                                class="btn btn-warning btn-sm" disabled>
+                            <i class="bi bi-clock-history me-1"></i> Exam Not Started
+                        </button>
+
+                        <!-- Time Over -->
+                        <button th:if="${currentTime.isAfter(exam.endTime) and !attemptedExamIds.contains(exam.examId)}"
+                                class="btn btn-danger btn-sm" disabled>
+                            <i class="bi bi-x-circle me-1"></i> Time Over
+                        </button>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+    </div> 
+</main>
+</html>

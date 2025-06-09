@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title layout:title-pattern="$CONTENT_TITLE - TrackMyThink">TrackMyThink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      padding-top: 56px;
+    }
+    .sidebar {
+      height: 100vh;
+      background: #f8f9fa;
+      padding-top: 1rem;
+      position: fixed;
+      left: 0;
+      top: 56px;
+      width: 220px;
+      transition: all 0.3s ease;
+    }
+    .sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #dee2e6;
+    }
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    .collapsed-sidebar {
+      margin-left: 0 !important;
+    }
+    .hidden-sidebar {
+      transform: translateX(-100%);
+    }
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      color: white;
+      margin-right: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+     style="background: linear-gradient(90deg, #4e54c8, #8f94fb); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
+  <div class="container-fluid">
+    <button class="toggle-btn" id="sidebarToggle"><i class="bi bi-list"></i></button>
+    <a class="navbar-brand" href="#">TrackMyThink</a>
+    <div class="ms-auto">
+      <a href="/logout" class="btn btn-outline-light" onclick="return confirm('are you sure want to logout ?')">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+  <a href="/student/dashboard" th:if="${student != null}">
+    <i class="bi bi-house-door"></i> Dashboard
+  </a>
+  <a href="/student/viewprofile" th:if="${student != null }">
+    <i class="bi bi-person-circle"></i> View Profile
+  </a>
+  <a href="/student/upcommingexams" th:if="${student != null and student.isActive}">
+    <i class="bi bi-pencil-square"></i> Upcoming Exams
+  </a>
+  <a href="/student/examHistory" th:if="${student != null and student.isActive}">
+    <i class="bi bi-clock-history"></i> Exam History
+  </a>
+  <a href="/student/passwordchange" th:if="${student != null and student.isActive}">
+    <i class="bi bi-key"></i> Change Password
+  </a>
+  <a href="#" th:if="${student != null}">
+    <i class="bi bi-question-circle"></i> Help
+  </a>
+</div>
+
+<!-- Content Area -->
+<main id="mainContent" class="content" layout:fragment="content">
+  <!-- Default content if no fragment provided -->
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const toggleBtn = document.getElementById("sidebarToggle");
+  const sidebar = document.getElementById("sidebar");
+  const mainContent = document.getElementById("mainContent");
+
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("hidden-sidebar");
+    mainContent.classList.toggle("collapsed-sidebar");
+  });
+</script>
+
+</body>
+</html>

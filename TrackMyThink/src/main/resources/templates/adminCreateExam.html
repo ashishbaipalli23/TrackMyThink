@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{adminlayout}">
+
+
+<main layout:fragment="content" >
+
+   <div class="container-fluid mt-4">
+
+	<div class="row justify-content-center">
+		<div class="col-md-10 col-lg-8">
+		<div th:if="${examSaved}"
+					class="alert alert-success alert-dismissible fade show"
+					role="alert">
+					<strong>Success!</strong> Exam created successfully!
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+			<!-- Exam Creation Card -->
+			<div class="card shadow-sm mb-4">
+				
+
+				<div
+					class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+					<span><i class="bi bi-journal-plus"></i> Create New Exam</span> <span
+						th:text="${admin.name}" class="fw-bold"></span>
+				</div>
+
+				<div class="card-body">
+					<form th:action="@{/admin/create-exam}" th:object="${examDTO}"
+						method="post">
+
+						<div class="mb-3">
+							<label class="form-label">Exam Title</label> <input type="text"
+								th:field="*{examTitle}" class="form-control" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Subject</label> <input type="text"
+								th:field="*{subject}" class="form-control" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Total Questions</label> <input
+								type="number" th:field="*{totalQuestions}" class="form-control"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Duration (Minutes)</label> <input
+								type="number" th:field="*{durationMinutes}" class="form-control"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Exam Date</label> <input type="date"
+								th:field="*{examDate}" class="form-control" required>
+						</div>
+
+						<div class="row mb-3">
+							<div class="col">
+								<label class="form-label">Start Time</label> <input type="time"
+									th:field="*{startTime}" class="form-control" required>
+							</div>
+							<div class="col">
+								<label class="form-label">End Time</label> <input type="time"
+									th:field="*{endTime}" class="form-control" required>
+							</div>
+						</div>
+
+						<div class="text-end">
+							<button type="submit" class="btn btn-success">
+								<i class="bi bi-check-circle"></i> Save Exam
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+</main>
+
+</html>

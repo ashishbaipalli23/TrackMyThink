@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{adminlayout}">
+
+<main layout:fragment="content">
+    <div class="container py-4">
+
+        <!-- Page Heading -->
+        <div class="mb-4 text-center">
+            <h2 class="fw-bold text-primary">Add New Question</h2>
+            <h5 class="text-muted" th:text="'Welcome, ' + ${admin.name}"></h5>
+            <!-- Exam Info -->
+			<div class="alert alert-info d-flex justify-content-between align-items-center mb-4 shadow-sm">
+			    <div>
+			        <h5 class="mb-1">Subject: <span th:text="${exam.subject}">Subject Name</span></h5>
+			        <p class="mb-0">
+			            Total Questions Required: <strong th:text="${exam.totalQuestions}">10</strong> |
+			            Already Added: <strong th:text="${existingCount}">3</strong> |
+			            Remaining: <strong th:text="${remainingCount}">7</strong>
+			        </p>
+			    </div>
+			    <i class="bi bi-journal-text fs-2 text-primary"></i>
+			</div>
+			            
+            
+        </div>
+
+        <!-- Form Card -->
+        <!-- Form Card -->
+<div class="card shadow-lg">
+    <div class="card-body">
+    
+        <!--Show message if no more questions should be added -->
+         <!-- Show message if no more questions should be added -->
+<div th:if="${remainingCount == 0}">
+    <div class="alert alert-success text-center fw-bold fs-5">
+        ✅ All required questions have been added for this exam.
+    </div>
+
+    <div class="text-center mt-3">
+        <!-- Preview Questions Button -->
+        <a th:href="@{/admin/exam/{id}/preview(id=${exam.examId})}" 
+           class="btn btn-outline-primary me-3">
+            <i class="bi bi-eye-fill me-1"></i> Preview Questions
+        </a>
+
+        
+    </div>
+</div>
+         
+        <!-- Only show form if remainingCount > 0 -->
+        <form th:if="${remainingCount > 0}"
+              th:action="@{/admin/exam/{id}/save-question(id=${exam.examId})}"
+              th:object="${question}" method="post">
+
+            <!-- Question Text -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Question Text</label>
+                <textarea class="form-control" th:field="*{questionText}" rows="3" required></textarea>
+            </div>
+
+            <!-- Options -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Option A</label>
+                    <input type="text" class="form-control" th:field="*{optionA}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Option B</label>
+                    <input type="text" class="form-control" th:field="*{optionB}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Option C</label>
+                    <input type="text" class="form-control" th:field="*{optionC}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Option D</label>
+                    <input type="text" class="form-control" th:field="*{optionD}" required>
+                </div>
+            </div>
+
+            <!-- Correct Option -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Correct Option</label>
+                <select class="form-select" th:field="*{correctOption}" required>
+                    <option value="" disabled selected>Choose correct option</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-end">
+                <button type="submit" class="btn btn-success px-4">
+                    <i class="bi bi-plus-circle me-2"></i> Add Question
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+        
+
+    </div>
+</main>
+
+</html>

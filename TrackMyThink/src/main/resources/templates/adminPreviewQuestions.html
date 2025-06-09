@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{adminlayout}">
+
+<main layout:fragment="content">
+    <div class="container py-5">
+
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-gradient">📋 Exam Question Preview</h2>
+            <p class="lead text-muted mb-1">
+                <strong>Exam:</strong> <span th:text="${exam.examTitle}"></span> |
+                <strong>Subject:</strong> <span th:text="${exam.subject}"></span>
+            </p>
+            <p class="text-success fw-semibold">👤 Welcome, <span th:text="${admin.name}">Admin</span></p>
+        </div>
+
+        <!-- No Questions Available -->
+        <div th:if="${#lists.isEmpty(questions)}" class="alert alert-warning text-center shadow-sm fs-5 rounded-3">
+            ⚠ No questions found for this exam.
+        </div>
+
+        <!-- Questions List -->
+        <div th:if="${not #lists.isEmpty(questions)}">
+            <div class="row row-cols-1 g-4">
+                <div class="col" th:each="question, iterStat : ${questions}">
+                    <div class="card shadow-sm rounded-4 border-0">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3 text-primary">Q[[${iterStat.count}]].</h5>
+                            <p class="card-text mb-3" th:text="${question.questionText}"></p>
+
+                            <div class="list-group">
+                                <div class="list-group-item"
+                                     th:classappend="${question.correctOption == 'A'} ? 'list-group-item-success fw-bold' : ''"
+                                     th:text="'A. ' + ${question.optionA}"></div>
+                                <div class="list-group-item"
+                                     th:classappend="${question.correctOption == 'B'} ? 'list-group-item-success fw-bold' : ''"
+                                     th:text="'B. ' + ${question.optionB}"></div>
+                                <div class="list-group-item"
+                                     th:classappend="${question.correctOption == 'C'} ? 'list-group-item-success fw-bold' : ''"
+                                     th:text="'C. ' + ${question.optionC}"></div>
+                                <div class="list-group-item"
+                                     th:classappend="${question.correctOption == 'D'} ? 'list-group-item-success fw-bold' : ''"
+                                     th:text="'D. ' + ${question.optionD}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activate Exam Button -->
+            <div class="text-center mt-5">
+                <form th:action="@{/admin/exam/{id}/activate(id=${exam.examId})}" method="post">
+                    <button type="submit" class="btn btn-lg btn-gradient-green px-5 py-2 rounded-pill shadow">
+                        <i class="bi bi-check-circle me-2"></i> Activate Exam
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center mt-4">
+            <a th:href="@{/admin/manageexams}" class="btn btn-outline-secondary rounded-pill shadow-sm px-4">
+                <i class="bi bi-arrow-left-circle me-2"></i> Back to Manage Exams
+            </a>
+        </div>
+
+    </div>
+</main>
+</html>

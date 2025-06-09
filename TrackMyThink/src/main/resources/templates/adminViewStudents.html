@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{adminlayout}">
+
+<main layout:fragment="content">
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-primary"><i class="bi bi-people-fill me-2"></i>Students List</h3>
+            <h5 class="text-muted">Welcome, <span th:text="${admin.name}"></span></h5>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-3">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by name, email, or ID...">
+        </div>
+
+        <!-- Students Table -->
+        <div class="table-responsive shadow shadow-lg">
+            <table class="table table-hover table-bordered table-striped p-3" id="studentsTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Student ID <i class="bi bi-arrow-down-up"></i></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Registered On</th>
+                         <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student, iterStat : ${students}">
+                        <th scope="row" th:text="${iterStat.count}"></th>
+                        <td th:text="${student.studentId}"></td>
+                        <td th:text="${student.name}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td th:text="${student.contactNumber}"></td>
+                        <td th:text="${student.gender}"></td>
+                        <td th:text="${student.address}"></td>
+                        <td th:text="${#temporals.format(student.registrationDate, 'dd-MM-yyyy')}"></td>
+                      <td>
+						    <span th:if="${student.isActive}" class="badge bg-success">
+						        <i class="bi bi-check-circle-fill me-1"></i> Active
+						    </span>
+						    <span th:if="${!student.isActive}" class="badge bg-secondary">
+						        <i class="bi bi-x-circle-fill me-1"></i> Inactive
+						    </span>
+						</td>
+                      
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const value = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#studentsTable tbody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(value) ? '' : 'none';
+            });
+        });
+
+        // Sorting by column
+        document.querySelectorAll('#studentsTable th').forEach((header, index) => {
+            header.style.cursor = 'pointer';
+            header.addEventListener('click', () => {
+                const table = header.closest('table');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                const ascending = header.classList.toggle('asc');
+                rows.sort((a, b) => {
+                    const cellA = a.children[index].textContent.trim().toLowerCase();
+                    const cellB = b.children[index].textContent.trim().toLowerCase();
+                    return ascending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+                });
+                tbody.innerHTML = '';
+                tbody.append(...rows);
+            });
+        });
+    </script>
+</main>
+
+</html>

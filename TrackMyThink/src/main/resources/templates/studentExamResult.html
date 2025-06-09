@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Exam Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title text-success">Exam Submitted Successfully!</h3>
+            <p><strong>Exam:</strong> <span th:text="${exam.examTitle}">Exam Title</span></p>
+            <p><strong>Your Score:</strong> <span th:text="${score}">0</span>%</p>
+            <p><strong>Correct Answers:</strong> <span th:text="${correct}"></span> out of <span th:text="${total}"></span></p>
+            <a href="/student/dashboard" class="btn btn-primary">Go to Dashboard</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

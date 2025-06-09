@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{adminlayout}">
+
+<main layout:fragment="content">
+    <div class="container py-4">
+
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary"><i class="bi bi-speedometer2"></i> Admin Dashboard</h2>
+            <p class="text-muted fs-5">Welcome, <span class="fw-semibold" th:text="${admin.name}"></span></p>
+        </div>
+
+        <!-- Active Exams -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-lightning-charge-fill me-1"></i>Ready to Publish Exams</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${#lists.isEmpty(activeExams)}">
+                    <div class="alert alert-info text-center">
+                        <i class="bi bi-info-circle-fill"></i> No active exams available.
+                    </div>
+                </div>
+                <div th:if="${not #lists.isEmpty(activeExams)}">
+                    <table class="table table-hover text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Title</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Duration</th>
+                                <th>Preview</th>
+                                <th>Publish</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="exam : ${activeExams}">
+                                <td th:text="${exam.examTitle}"></td>
+                                <td th:text="${exam.subject}"></td>
+                                <td th:text="${exam.examDate}"></td>
+                                <td>
+                                    <span th:text="${exam.startTime}"></span> - 
+                                    <span th:text="${exam.endTime}"></span>
+                                </td>
+                                <td th:text="${exam.durationMinutes + ' mins'}"></td>
+                                <td>
+                                    <a th:href="@{/admin/exam/{id}/preview(id=${exam.examId})}" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-eye-fill"></i> Preview
+                                    </a>
+                                </td>
+                                <td>
+									<a th:href="@{/admin/exam/{id}/publish(id=${exam.examId})}" class="btn btn-outline-success btn-sm">
+										<i class="bi bi-check-circle-fill"></i> Publish
+									</a>
+								</td>
+								 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Published Exams -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-megaphone-fill me-1"></i> Published Exams</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${#lists.isEmpty(publishedExams)}">
+                    <div class="alert alert-secondary text-center">
+                        <i class="bi bi-exclamation-circle"></i> No published exams found.
+                    </div>
+                </div>
+                <div th:if="${not #lists.isEmpty(publishedExams)}">
+                    <table class="table table-striped text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Title</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Preview</th>
+                                <th>Results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="exam : ${publishedExams}">
+                                <td th:text="${exam.examTitle}"></td>
+                                <td th:text="${exam.subject}"></td>
+                                <td th:text="${exam.examDate}"></td>
+                                <td>
+                                    <span class="badge bg-success" th:if="${exam.isActive}">Active</span>
+                                    <span class="badge bg-warning text-dark" th:if="${!exam.isActive}">Inactive</span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/exam/{id}/preview(id=${exam.examId})}" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-eye"></i> Preview
+                                    </a>
+                                </td>
+                                 <td>
+                                    <a th:href="@{/admin/exam/{id}/results(id=${exam.examId})}" class="btn btn-outline-dark btn-sm">
+                                        <i class="bi bi-eye"></i> Results
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+       
+
+    </div>
+</main>
+
+</html>
