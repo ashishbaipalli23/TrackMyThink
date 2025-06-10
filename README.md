@@ -161,7 +161,6 @@ docker run -p 8088:8080 trackmythink
 Access: http://localhost:8080/trackmythink
 
 ---
----
 
 ## 👤 Author
 
