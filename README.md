@@ -136,15 +136,16 @@ After startup, open your browser and go to:
 http://localhost:8088
 
 ## 🐳 Docker Deployment (Optional)
-# 📁 Step 1: Generate WAR File ( Or which is already in resources)
+### 📁 Step 1: Generate WAR File ( Or which is already in resources)
 
 mvn clean package
-# 🐳 Step 2: Dockerfile (Sample)
+### 🐳 Step 2: Dockerfile (Sample)
 dockerfile
 
 FROM tomcat:9-jdk17
 COPY target/trackmythink.war /usr/local/tomcat/webapps/
-# ▶️ Step 3: Build and Run Docker
+
+### ▶️ Step 3: Build and Run Docker
 
 docker build -t trackmythink .
 docker run -p 8080:8080 trackmythink
