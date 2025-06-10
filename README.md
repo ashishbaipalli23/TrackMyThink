@@ -46,7 +46,10 @@ Includes the following MySQL tables:
 - `student`
 - `student_exam_attempts`
 
-➡️ ER Diagram and DBML representation available [here](#) *(optional if hosted or uploaded)*
+➡️ ER Diagram and DBML representation available 
+![Image](https://github.com/user-attachments/assets/81c501de-0e34-4bfc-8e2f-ec14c47b4716)
+![TrackMyThink UI Screenshot](https://github.com/user-attachments/assets/81c501de-0e34-4bfc-8e2f-ec14c47b4716)
+
 
 ---
 
