@@ -104,9 +104,9 @@ IDE (IntelliJ, Eclipse, or VS Code)
 
 - git clone https://github.com/ashishbaipalli23/TrackMyThink.git/
 - cd TrackMyThink
-## 🔁 Replace your-username with your actual GitHub username.
+
 ## 🗃️ Setup MySQL Database
-Create a new database:
+#### Create a new database:
 - CREATE DATABASE trackmythink;
 - Configure DB connection in src/main/resources/application.properties:
 ```
@@ -130,15 +130,15 @@ spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 ```
 ## ⚙️ Build and Run the Application
-Run with Maven:
+#### Run with Maven:
 
 - mvn clean install
 - mvn spring-boot:run
 Or run from your IDE via:
 
 TrackMyThinkApplication.java
-🌐 Access the Application
-After startup, open your browser and go to:
+#### 🌐 Access the Application
+ After startup, open your browser and go to:
 http://localhost:8088
 ---
 
