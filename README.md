@@ -138,8 +138,9 @@ Or run from your IDE via:
 
 TrackMyThinkApplication.java
 #### 🌐 Access the Application
- After startup, open your browser and go to:
+After startup, open your browser and go to:
 http://localhost:8088
+
 ---
 
 ---
