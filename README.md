@@ -75,7 +75,7 @@ src/
 │   │   ├── application.properties       # DB and mail configurations
 │   │   └── .war file       # war file pull and directly run in docker container (optional)
 
-
+```
 
 ## 🚀 Getting Started
 Follow the steps below to set up and run the TrackMyThink – Online Examination System locally on your machine.
@@ -94,24 +94,16 @@ Docker (optional for deployment)
 IDE (IntelliJ, Eclipse, or VS Code)
 
 📦 Clone the Repository
-bash
-Copy
-Edit
-git clone https://github.com/your-username/trackmythink-online-exam-system.git
-cd trackmythink-online-exam-system
-🔁 Replace your-username with your actual GitHub username.
 
-🗃️ Setup MySQL Database
+- git clone https://github.com/your-username/trackmythink-online-exam-system.git
+- cd trackmythink-online-exam-system
+## 🔁 Replace your-username with your actual GitHub username.
+
+## 🗃️ Setup MySQL Database
 Create a new database:
-
-sql
-Copy
-Edit
-CREATE DATABASE trackmythink;
-Configure DB connection in src/main/resources/application.properties:
-
-
-Edit
+- CREATE DATABASE trackmythink;
+- Configure DB connection in src/main/resources/application.properties:
+```
 spring.datasource.url=jdbc:mysql://localhost:3306/trackmythink
 spring.datasource.username=your_db_username
 spring.datasource.password=your_db_password
@@ -119,47 +111,46 @@ spring.datasource.password=your_db_password
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.show-sql=true #Optional
-
-📧 Email Configuration (Optional)
+```
+## 📧 Email Configuration (Optional)
 For sending emails (e.g., registration confirmation), add your SMTP settings:
 
-properties
-
+```
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
 spring.mail.username=your_email@gmail.com
 spring.mail.password=your_app_password
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
-⚙️ Build and Run the Application
+```
+## ⚙️ Build and Run the Application
 Run with Maven:
 
-mvn clean install
-mvn spring-boot:run
+- mvn clean install
+- mvn spring-boot:run
 Or run from your IDE via:
 
 TrackMyThinkApplication.java
 🌐 Access the Application
 After startup, open your browser and go to:
-
-
 http://localhost:8088
-🐳 Docker Deployment (Optional)
-📁 Step 1: Generate WAR File ( Or which is already in resources)
+
+## 🐳 Docker Deployment (Optional)
+# 📁 Step 1: Generate WAR File ( Or which is already in resources)
 
 mvn clean package
-🐳 Step 2: Dockerfile (Sample)
+# 🐳 Step 2: Dockerfile (Sample)
 dockerfile
 
 FROM tomcat:9-jdk17
 COPY target/trackmythink.war /usr/local/tomcat/webapps/
-▶️ Step 3: Build and Run Docker
+# ▶️ Step 3: Build and Run Docker
 
 docker build -t trackmythink .
 docker run -p 8080:8080 trackmythink
 Access: http://localhost:8080/trackmythink
 
-👨‍💻 Author
+## 👨‍💻 Author
 Ashish Baipalli
 GitHub Profile
 LinkedIn Profile
